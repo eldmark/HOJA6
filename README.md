@@ -1,7 +1,7 @@
 # Proyecto de Algoritmos y Estructuras de Datos
 
 ## Descripción
-Este proyecto es parte del curso de Algoritmos y Estructuras de Datos. Consiste en la implementación y análisis de diferentes algoritmos y estructuras de datos.
+Este proyecto es parte del curso de Algoritmos y Estructuras de Datos. Consiste en la implementación y análisis de diferentes HASH en el lenguaje de java.
 
 ## Estructura del Proyecto
 - `src/`: Contiene el código fuente del proyecto.
