@@ -21,7 +21,7 @@ public class App {
             scanner.nextLine();
             if (mapOption > 0 && mapOption < 4) {
 
-                String filePath = "./recursos/pokemon.csv";
+                String filePath = "./collection/recursos/pokemon.csv";
                 allPokemons = csvController.createPokemonList(filePath, mapOption);
                 if (allPokemons != null) {
                     System.out.println("Mapa creado exitosamente.");
