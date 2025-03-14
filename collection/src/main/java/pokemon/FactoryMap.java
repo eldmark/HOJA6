@@ -2,7 +2,7 @@ package pokemon;
 import java.util.*;
 
 public class FactoryMap {
-    public static Map<String, ArrayList<String>> createMap(int option) {
+    public static Map<String, Pokemon> createMap(int option) {
         return switch (option) {
             case 1 -> new HashMap<>();
             case 2 -> new TreeMap<>();

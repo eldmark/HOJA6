@@ -1,5 +1,6 @@
 package pokemon;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedHashSet;
@@ -12,8 +13,7 @@ public class App {
         Scanner scanner = new Scanner(System.in);
         LinkedHashSet<String> pokemonCollection = new LinkedHashSet<>();
         CSVController csvController = new CSVController();
-        Map<String, ArrayList<String>> allPokemons = null;
-
+        Map<String,Pokemon> allPokemons = null;
         boolean exit = false;
         while (!exit) {
             System.out.print("Seleccione el método de creación del mapa (1: HashMap, 2: TreeMap, 3:LinkedHashMap): ");
@@ -22,7 +22,11 @@ public class App {
             if (mapOption > 0 && mapOption < 4) {
 
                 String filePath = "./collection/recursos/pokemon.csv";
-                allPokemons = csvController.createPokemonList(filePath, mapOption);
+                try {
+                    allPokemons = csvController.loadPokemonData(filePath, mapOption);
+                } catch (IOException e) {
+                    System.err.println("Error loading Pokemon data: " + e.getMessage());
+                }
                 if (allPokemons != null) {
                     System.out.println("Mapa creado exitosamente.");
                 } else {
@@ -34,9 +38,7 @@ public class App {
                 continue;
             }
 
-            // Create a final reference to use within this iteration
-            final Map<String, ArrayList<String>> currentAllPokemons = allPokemons;
-            System.out.println("allPokemons: " + currentAllPokemons);
+            final Map<String, Pokemon> currentAllPokemons = allPokemons;
             System.out.println("\nMenú de Pokémon:");
             System.out.println("1. Agregar Pokémon a la colección");
             System.out.println("2. Mostrar datos de un Pokémon");
@@ -47,7 +49,7 @@ public class App {
             System.out.print("Seleccione una opción: ");
 
             int option = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine(); 
             switch (option) {
                 case 1:
                     System.out.print("Ingrese el nombre del Pokémon: ");
@@ -73,28 +75,42 @@ public class App {
                     if (!pokemonCollection.contains(name)) {
                         System.out.println("Error: Pokémon no encontrado en la colección.");
                     } else {
-                        ArrayList<String> data = currentAllPokemons.get(name);
-                        System.out.println("Datos del Pokémon: " + data);
+                        Pokemon data = currentAllPokemons.get(name);
+                        System.out.println("Datos del Pokémon: " + data.getName());
+                        System.out.println("Número en la Pokédex: " + data.getPokedexNumber());
+                        switch (data.getAbility2()) {
+                            case "":
+                                System.out.println("Habilidad: " + data.getAbility1());
+                                break;
+                            default:
+                                System.out.println("Habilidades: " + data.getAbility1() + ", " + data.getAbility2());
+                        }
+                        System.out.println("Tipo 1: " + data.getType1());
+                        System.out.println("Tipo 2: " + data.getType2());
+                        System.out.println("Altura: " + data.getHeight());
+                        System.out.println("Peso: " + data.getWeight());
+                        System.out.println("Generacion: " + data.getGeneration());
+                        System.out.println("Legendaria: " + data.getLegendaryStatus());
                     }
                     break;
 
                 case 3:
                     List<String> sortedList = new ArrayList<>(pokemonCollection);
-                    sortedList.sort(Comparator.comparing(n -> currentAllPokemons.get(n).get(3)));
+                    sortedList.sort(Comparator.comparing(n -> currentAllPokemons.get(n).getType1()));
 
                     System.out.println("Pokémon ordenados por Tipo 1:");
                     for (String n : sortedList) {
-                        System.out.println(n + " - Tipo 1: " + currentAllPokemons.get(n).get(3));
+                        System.out.println(n + " - Tipo 1: " + currentAllPokemons.get(n).getType1());
                     }
                     break;
 
                 case 4:
-                    List<Map.Entry<String, ArrayList<String>>> entries = new ArrayList<>(currentAllPokemons.entrySet());
-                    entries.sort(Comparator.comparing(entry -> entry.getValue().get(3)));
+                    List<Map.Entry<String, Pokemon>> entries = new ArrayList<>(currentAllPokemons.entrySet());
+                    entries.sort(Comparator.comparing(entry -> ((Pokemon) entry.getValue()).getType1()));
 
                     System.out.println("Todos los Pokémon ordenados por Tipo 1:");
-                    for (Map.Entry<String, ArrayList<String>> entry : entries) {
-                        System.out.println(entry.getKey() + " - Tipo 1: " + entry.getValue().get(3));
+                    for (Map.Entry<String, Pokemon> entry : entries) {
+                        System.out.println(entry.getKey() + " - Tipo 1: " + entry.getValue().getType1());
                     }
                     break;
 
@@ -103,8 +119,8 @@ public class App {
                     String ability = scanner.nextLine();
 
                     System.out.println("Pokémon con la habilidad " + ability + ":");
-                    for (Map.Entry<String, ArrayList<String>> entry : currentAllPokemons.entrySet()) {
-                        if (entry.getValue().contains(ability)) {
+                    for (Map.Entry<String, Pokemon> entry : currentAllPokemons.entrySet()) {
+                        if (entry.getValue().getAbilities().contains(ability)) {
                             System.out.println(entry.getKey());
                         }
                     }

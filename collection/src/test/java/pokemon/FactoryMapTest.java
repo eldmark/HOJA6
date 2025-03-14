@@ -9,19 +9,19 @@ import static org.junit.jupiter.api.Assertions.*;
 public class FactoryMapTest {
     @Test
     public void testCreateMapWithOption1() {
-        Map<String, ArrayList<String>> map = FactoryMap.createMap(1);
+        Map<String, Pokemon> map = FactoryMap.createMap(1);
         assertTrue(map instanceof HashMap);
     }
 
     @Test
     public void testCreateMapWithOption2() {
-        Map<String, ArrayList<String>> map = FactoryMap.createMap(2);
+        Map<String, Pokemon> map = FactoryMap.createMap(2);
         assertTrue(map instanceof TreeMap);
     }
 
     @Test
     public void testCreateMapWithOption3() {
-        Map<String, ArrayList<String>> map = FactoryMap.createMap(3);
+        Map<String, Pokemon> map = FactoryMap.createMap(3);
         assertTrue(map instanceof LinkedHashMap);
     }
 
