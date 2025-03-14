@@ -46,6 +46,13 @@ Este proyecto es parte del curso de Algoritmos y Estructuras de Datos. Consiste 
     ```
 5. Crear un pull request.
 
+
+## Respuestas de analisis:
+Caso 4:
+1. En el caso me 4 me voy a basar en la implementación con hasmap, dado que hashmap tiene una complejidad teórica de O(n), lo que significa
+    que la complejidad en tiempo irá aumentando respecto a la cantidad de datos utilizados en la operación. Agregado a eso se utiliza el metodo Sort() que utiliza implicitamente el algoritmo TimSort que tiene una complejidad promedio de O(n log n) en promedio, dando como consecuencia que este ordenamiento tenga O(n log n) de complejidad
+
+2. Utilicé linkedHashSet para la coleccion de pokemones del usuario porque tenia una validación automatica de que no permite utilizar repetidos, además de que este conserva un orden lo cual puede ser util al momento de tratar con la poca cantidad de datos que un usuario puede tener en la vida real, asimismo asumiendo que esta tiene complejidad O(n) esta tiene un limite de los 905 pokemones en el csv por lo que su valor no crecera en desmedida
 ## Licencia
 [Especificar licencia]
 
