@@ -16,16 +16,16 @@ Este proyecto es parte del curso de Algoritmos y Estructuras de Datos. Consiste 
 ## Instalación
 1. Clonar el repositorio:
     ```bash
-    git clone [https://github.com/eldmark/HOJA6.git]
+    git clone https://github.com/eldmark/HOJA6.git
     ```
 2. Navegar al directorio del proyecto:
     ```bash
-    cd [collection]
+    cd collection
     ```
 3. Instalar dependencias:
     ```bash
-    [Comando para instalar dependencias]
-    ```mvn clean install
+    mvn clean install
+    ``` 
 
 ## Uso
 [Instrucciones sobre cómo ejecutar el proyecto]
